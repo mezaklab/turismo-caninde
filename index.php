@@ -198,13 +198,8 @@ $stats = [
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 
-                <!-- Logo -->
                 <a href="#" class="flex items-center gap-3 group">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 p-0.5 shadow-md group-hover:scale-105 transition-transform">
-                        <div class="w-full h-full bg-slate-900 rounded-[10px] flex items-center justify-center text-caninde-gold font-bold text-xl">
-                            <i class="fa-solid fa-water-ladder text-2xl text-amber-400"></i>
-                        </div>
-                    </div>
+                    <img src="assets/images/brasao_oficial.png" alt="Brasão Oficial de Canindé de São Francisco" class="h-16 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform">
                     <div class="flex flex-col">
                         <span class="text-xs tracking-widest text-amber-400 font-bold uppercase">Prefeitura de</span>
                         <span class="text-lg font-extrabold tracking-tight text-white group-hover:text-amber-300 transition-colors">
@@ -710,9 +705,7 @@ $stats = [
                 <!-- Coluna 1: Logo & Sobre -->
                 <div class="space-y-4">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-lg bg-amber-500 flex items-center justify-center text-slate-950 font-bold text-lg">
-                            <i class="fa-solid fa-water-ladder"></i>
-                        </div>
+                        <img src="assets/images/brasao_oficial.png" alt="Brasão Oficial de Canindé de São Francisco" class="h-16 w-auto object-contain drop-shadow-md">
                         <div class="flex flex-col">
                             <span class="text-[10px] tracking-widest text-amber-400 font-bold uppercase">Prefeitura de</span>
                             <span class="text-base font-extrabold text-white">CANINDÉ <span class="text-amber-400 font-serif italic">de São Francisco</span></span>

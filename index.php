@@ -85,6 +85,55 @@ $stats = [
     ['number' => '1938', 'label' => 'Ano Histórico do Angico', 'sub' => 'Capítulo marcante do Cangaço'],
     ['number' => '100%', 'label' => 'Hospitalidade Sertaneja', 'sub' => 'Povo acolhedor de Canindé']
 ];
+
+// Dados dos Restaurantes (Onde Comer)
+$restaurants = [
+    [
+        'name' => 'Restaurante Karrancas',
+        'category' => 'Peixes & Frutos do Rio',
+        'specialty' => 'Tucunaré Frito & Surubim ao Molho de Camarão',
+        'location' => 'Orla do Cânion do Xingó - Canindé de São Francisco',
+        'phone' => '(79) 99844-3311',
+        'tag' => 'Orla do Cânion',
+        'image' => 'assets/images/canions_xingo.jpg'
+    ],
+    [
+        'name' => 'Restaurante O Castanho',
+        'category' => 'Culinária Sertaneja',
+        'specialty' => 'Carne de Sol com Macaxeira & Peixe Grelhado',
+        'location' => 'Reserva Ecológica do Castanho - Sertão',
+        'phone' => '(79) 99912-8844',
+        'tag' => 'Vista Panorâmica',
+        'image' => 'assets/images/rota_cangaco.jpg'
+    ],
+    [
+        'name' => 'Sabor do Sertão',
+        'category' => 'Comida Caseira',
+        'specialty' => 'Galinha Caipira com Pirão & Doces Típicos',
+        'location' => 'Rua do Comércio, Centro - Canindé',
+        'phone' => '(79) 98822-7700',
+        'tag' => 'Centro Histórico',
+        'image' => 'assets/images/cordel_art.jpg'
+    ],
+    [
+        'name' => 'Restaurante Bode Assado do Sertão',
+        'category' => 'Comida Típica / Churrasco',
+        'specialty' => 'Bode Assado na Brasa & Pirão de Queijo',
+        'location' => 'Av. Principal - Canindé de São Francisco',
+        'phone' => '(79) 99811-2233',
+        'tag' => 'Tradição Sertaneja',
+        'image' => 'assets/images/bode_assado.jpg'
+    ],
+    [
+        'name' => 'Varanda do Velho Chico',
+        'category' => 'Petiscaria & Bebidas',
+        'specialty' => 'Caldinho de Peixe & Caipirinhas da Caatinga',
+        'location' => 'Orla Fluvial - Canindé de São Francisco',
+        'phone' => '(79) 99888-5544',
+        'tag' => 'Beira-Rio',
+        'image' => 'assets/images/hero_canyons.jpg'
+    ]
+];
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
@@ -214,6 +263,7 @@ $stats = [
                     <a href="#nossa-cidade" class="text-sm font-medium text-slate-300 hover:text-caninde-gold transition-colors">Nossa Cidade</a>
                     <a href="#turismo" class="text-sm font-medium text-slate-300 hover:text-caninde-gold transition-colors">Turismo</a>
                     <a href="#cordel-cangaco" class="text-sm font-medium text-slate-300 hover:text-caninde-gold transition-colors">Rota do Cangaço</a>
+                    <a href="#onde-comer" class="text-sm font-medium text-slate-300 hover:text-caninde-gold transition-colors">Onde Comer</a>
                     <a href="#eventos" class="text-sm font-medium text-slate-300 hover:text-caninde-gold transition-colors">Eventos</a>
                     <a href="#estatisticas" class="text-sm font-medium text-slate-300 hover:text-caninde-gold transition-colors">Números</a>
                     <a href="#contato" class="text-sm font-medium text-slate-300 hover:text-caninde-gold transition-colors">Contato</a>
@@ -328,13 +378,13 @@ $stats = [
             </a>
 
             <!-- Card 3 -->
-            <button onclick="showQuickInfo('gastronomia')" class="bg-white rounded-2xl p-5 shadow-xl border-t-4 border-amber-500 text-slate-800 card-hover-lift group flex flex-col items-center text-center">
+            <a href="#onde-comer" class="bg-white rounded-2xl p-5 shadow-xl border-t-4 border-amber-500 text-slate-800 card-hover-lift group flex flex-col items-center text-center">
                 <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl mb-3 group-hover:bg-amber-500 group-hover:text-slate-950 transition-colors">
                     <i class="fa-solid fa-utensils"></i>
                 </div>
                 <h3 class="font-bold text-sm sm:text-base text-slate-900 group-hover:text-amber-600 transition-colors">Onde Comer</h3>
                 <p class="text-xs text-slate-500 mt-1 hidden sm:block">Gastronomia sergipana</p>
-            </button>
+            </a>
 
             <!-- Card 4 -->
             <button onclick="showQuickInfo('hospedagem')" class="bg-white rounded-2xl p-5 shadow-xl border-t-4 border-amber-500 text-slate-800 card-hover-lift group flex flex-col items-center text-center">
@@ -587,6 +637,100 @@ $stats = [
                 </div>
 
             </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO "GASTRONOMIA SERTANEJA & ONDE COMER" -->
+    <section id="onde-comer" class="py-20 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Cabeçalho da Seção -->
+            <div class="mb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-100 text-amber-800 text-xs font-extrabold tracking-wider uppercase mb-3">
+                    <i class="fa-solid fa-utensils text-amber-600"></i> GASTRONOMIA LOCAL & RESTAURANTES
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                    Sabores do Sertão & Onde Comer
+                </h2>
+                <p class="text-slate-600 mt-2 text-base max-w-2xl">
+                    Experimente a deliciosa culinária de Canindé de São Francisco: peixes frescos do Rio São Francisco, carne de sol sertaneja, doces tradicionais e tempero acolhedor.
+                </p>
+            </div>
+
+            <!-- Carrossel de Restaurantes em Destaque (3 no Desktop, 1 no Mobile) -->
+            <div class="relative group/onde-comer px-2 sm:px-0">
+                
+                <!-- Seta de Navegação Esquerda (Flutuante com Transparência e Hover) -->
+                <button onclick="scrollRestaurants('left')" class="absolute -left-3 sm:-left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-slate-900/70 hover:bg-amber-500 text-white hover:text-slate-950 backdrop-blur-md opacity-40 group-hover/onde-comer:opacity-75 hover:!opacity-100 transition-all duration-300 transform hover:scale-110 shadow-2xl flex items-center justify-center border border-white/20" title="Restaurante anterior" aria-label="Restaurante anterior">
+                    <i class="fa-solid fa-chevron-left text-base sm:text-lg"></i>
+                </button>
+
+                <!-- Seta de Navegação Direita (Flutuante com Transparência e Hover) -->
+                <button onclick="scrollRestaurants('right')" class="absolute -right-3 sm:-right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-slate-900/70 hover:bg-amber-500 text-white hover:text-slate-950 backdrop-blur-md opacity-40 group-hover/onde-comer:opacity-75 hover:!opacity-100 transition-all duration-300 transform hover:scale-110 shadow-2xl flex items-center justify-center border border-white/20" title="Próximo restaurante" aria-label="Próximo restaurante">
+                    <i class="fa-solid fa-chevron-right text-base sm:text-lg"></i>
+                </button>
+
+                <!-- Track do Carrossel (3 Cards por vez no Desktop, 1 no Celular com Swipe) -->
+                <div id="restaurant-carousel" class="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 pt-2 no-scrollbar" style="scrollbar-width: none; -ms-overflow-style: none;">
+                    <?php foreach ($restaurants as $restaurant): ?>
+                        <div class="snap-start shrink-0 w-full sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)] bg-caninde-bg rounded-2xl overflow-hidden border border-slate-200/80 shadow-md card-hover-lift flex flex-col group">
+                            <div class="relative h-48 overflow-hidden">
+                                <img src="<?php echo $restaurant['image']; ?>" alt="<?php echo $restaurant['name']; ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute top-4 left-4 bg-amber-500 text-slate-950 font-extrabold text-xs px-3 py-1 rounded-lg shadow-md uppercase tracking-wider">
+                                    <?php echo $restaurant['category']; ?>
+                                </div>
+                            </div>
+                            <div class="p-6 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-xl font-bold text-slate-900 group-hover:text-amber-600 transition-colors mb-2">
+                                        <?php echo $restaurant['name']; ?>
+                                    </h3>
+                                    <p class="text-xs font-semibold text-amber-700 mb-2 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-utensils"></i> <?php echo $restaurant['specialty']; ?>
+                                    </p>
+                                    <p class="text-xs text-slate-500 mb-4 flex items-start gap-1.5">
+                                        <i class="fa-solid fa-location-dot text-amber-500 mt-0.5"></i>
+                                        <span><?php echo $restaurant['location']; ?></span>
+                                    </p>
+                                </div>
+                                <div class="border-t border-slate-200/80 pt-3 flex items-center justify-between text-xs">
+                                    <span class="font-bold text-slate-700 flex items-center gap-1">
+                                        <i class="fa-brands fa-whatsapp text-emerald-600 text-sm"></i> <?php echo $restaurant['phone']; ?>
+                                    </span>
+                                    <span class="bg-slate-200 text-slate-700 px-2.5 py-1 rounded-md text-[10px] font-bold">
+                                        <?php echo $restaurant['tag']; ?>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <!-- Botão Ver Todos os Restaurantes (Discreto e Centralizado) -->
+            <div class="text-center mt-8 mb-4">
+                <a href="restaurantes.php" class="inline-flex items-center gap-2.5 text-slate-600 hover:text-amber-600 font-bold text-sm bg-slate-100 hover:bg-amber-100/80 px-6 py-3 rounded-full transition-all group border border-slate-200/80 shadow-sm">
+                    <span>Ver todos os restaurantes</span>
+                    <i class="fa-solid fa-arrow-right text-amber-500 transition-transform group-hover:translate-x-1"></i>
+                </a>
+            </div>
+
+            <!-- Chamada para Novos Proprietários -->
+            <div class="cordel-border mt-10 p-6 sm:p-8 bg-amber-50/70 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center text-xl shrink-0 shadow-md">
+                        <i class="fa-solid fa-utensils"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-extrabold text-slate-900 text-lg">Possui um restaurante ou lanchonete em Canindé?</h4>
+                        <p class="text-xs text-slate-600 mt-0.5">Cadastre gratuitamente seu estabelecimento no portal oficial de turismo da Prefeitura.</p>
+                    </div>
+                </div>
+                <button onclick="toggleModal('register-restaurant-modal')" class="w-full sm:w-auto bg-slate-900 hover:bg-amber-500 hover:text-slate-950 text-white font-bold px-6 py-3 rounded-xl text-xs transition-all shrink-0 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-plus-circle"></i> Cadastrar Estabelecimento
+                </button>
+            </div>
+
         </div>
     </section>
 
@@ -883,6 +1027,86 @@ $stats = [
         </div>
     </div>
 
+    <!-- MODAL CADASTRE SEU RESTAURANTE -->
+    <div id="register-restaurant-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative my-8 animate-fade-in max-h-[90vh] overflow-y-auto">
+            
+            <!-- Botão Fechar -->
+            <button onclick="toggleModal('register-restaurant-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 text-xl w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center transition" aria-label="Fechar modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Cabeçalho do Modal -->
+            <div class="flex items-center gap-3 mb-5 border-b border-slate-100 pb-4">
+                <div class="w-12 h-12 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center text-xl font-bold shadow-md shrink-0">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900">Cadastre seu Restaurante</h3>
+                    <p class="text-xs text-amber-700 font-semibold">Portal Oficial de Turismo da Prefeitura de Canindé</p>
+                </div>
+            </div>
+
+            <!-- Nota Informativa Clara no Topo -->
+            <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl mb-6">
+                <div class="flex items-start gap-3">
+                    <i class="fa-solid fa-circle-info text-amber-600 text-base mt-0.5 shrink-0"></i>
+                    <p class="text-xs text-amber-950 font-medium leading-relaxed">
+                        <strong>Nota importante:</strong> Seu cadastro será enviado para análise da administração da Prefeitura antes de ser exibido no site.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Formulário de Cadastro -->
+            <form onsubmit="handleRestaurantSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Nome do Estabelecimento *</label>
+                    <input type="text" required placeholder="Ex: Restaurante Sabor do Velho Chico" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Categoria / Tipo de Culinária *</label>
+                        <select required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm bg-white">
+                            <option value="">Selecione Categoria</option>
+                            <option>Peixes & Frutos do Rio</option>
+                            <option>Comida Típica Sertaneja</option>
+                            <option>Buffet & Self-Service</option>
+                            <option>Lanchonete & Petiscaria</option>
+                            <option>Pizzaria & Italiana</option>
+                            <option>Doces & Sobremesas</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Telefone / WhatsApp *</label>
+                        <input type="tel" required placeholder="(79) 99999-9999" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Endereço / Localização *</label>
+                    <input type="text" required placeholder="Ex: Av. Beira Rio, nº 120 - Centro, Canindé de São Francisco" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Descrição Curta *</label>
+                    <textarea rows="3" required placeholder="Descreva os pratos principais, horários de funcionamento e atrativos do seu estabelecimento..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm resize-none"></textarea>
+                </div>
+
+                <div class="pt-2 flex flex-col sm:flex-row gap-3">
+                    <button type="button" onclick="toggleModal('register-restaurant-modal')" class="w-full sm:w-1/3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl text-xs transition">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="w-full sm:w-2/3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold py-3 rounded-xl shadow-lg transition text-xs flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Enviar Cadastro para Análise
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
     <!-- JAVASCRIPT DE INTERATIVIDADE -->
     <script>
         // Toggle de Modais generico
@@ -1041,11 +1265,34 @@ $stats = [
             }
         }
 
-        // Submissão do formulário
+        // Submissão do formulário de contato
         function handleFormSubmit(e) {
             e.preventDefault();
             alert('Mensagem enviada com sucesso! A Prefeitura de Canindé de São Francisco responderá em breve.');
             toggleModal('contact-modal');
+        }
+
+        // Submissão do cadastro de restaurante
+        function handleRestaurantSubmit(e) {
+            e.preventDefault();
+            alert('Cadastro enviado com sucesso! Seu cadastro será enviado para análise da administração da Prefeitura antes de ser exibido no site.');
+            toggleModal('register-restaurant-modal');
+            e.target.reset();
+        }
+
+        // Rolagem do Carrossel de Restaurantes (Suave ~500ms)
+        function scrollRestaurants(direction) {
+            const container = document.getElementById('restaurant-carousel');
+            if (!container || !container.firstElementChild) return;
+            
+            // Largura do item + gap de 24px (1.5rem)
+            const itemWidth = container.firstElementChild.clientWidth + 24;
+            
+            if (direction === 'left') {
+                container.scrollBy({ left: -itemWidth, behavior: 'smooth' });
+            } else {
+                container.scrollBy({ left: itemWidth, behavior: 'smooth' });
+            }
         }
     </script>
 

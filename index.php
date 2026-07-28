@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
 // Prefeitura de Canindé de São Francisco - Sergipe
 // Portal de Turismo Oficial
 $currentYear = date('Y');
@@ -86,54 +87,52 @@ $stats = [
     ['number' => '100%', 'label' => 'Hospitalidade Sertaneja', 'sub' => 'Povo acolhedor de Canindé']
 ];
 
-// Dados dos Restaurantes (Onde Comer)
-$restaurants = [
-    [
-        'name' => 'Restaurante Karrancas',
-        'category' => 'Peixes & Frutos do Rio',
-        'specialty' => 'Tucunaré Frito & Surubim ao Molho de Camarão',
-        'location' => 'Orla do Cânion do Xingó - Canindé de São Francisco',
-        'phone' => '(79) 99844-3311',
-        'tag' => 'Orla do Cânion',
-        'image' => 'assets/images/canions_xingo.jpg'
-    ],
-    [
-        'name' => 'Restaurante O Castanho',
-        'category' => 'Culinária Sertaneja',
-        'specialty' => 'Carne de Sol com Macaxeira & Peixe Grelhado',
-        'location' => 'Reserva Ecológica do Castanho - Sertão',
-        'phone' => '(79) 99912-8844',
-        'tag' => 'Vista Panorâmica',
-        'image' => 'assets/images/rota_cangaco.jpg'
-    ],
-    [
-        'name' => 'Sabor do Sertão',
-        'category' => 'Comida Caseira',
-        'specialty' => 'Galinha Caipira com Pirão & Doces Típicos',
-        'location' => 'Rua do Comércio, Centro - Canindé',
-        'phone' => '(79) 98822-7700',
-        'tag' => 'Centro Histórico',
-        'image' => 'assets/images/cordel_art.jpg'
-    ],
-    [
-        'name' => 'Restaurante Bode Assado do Sertão',
-        'category' => 'Comida Típica / Churrasco',
-        'specialty' => 'Bode Assado na Brasa & Pirão de Queijo',
-        'location' => 'Av. Principal - Canindé de São Francisco',
-        'phone' => '(79) 99811-2233',
-        'tag' => 'Tradição Sertaneja',
-        'image' => 'assets/images/bode_assado.jpg'
-    ],
-    [
-        'name' => 'Varanda do Velho Chico',
-        'category' => 'Petiscaria & Bebidas',
-        'specialty' => 'Caldinho de Peixe & Caipirinhas da Caatinga',
-        'location' => 'Orla Fluvial - Canindé de São Francisco',
-        'phone' => '(79) 99888-5544',
-        'tag' => 'Beira-Rio',
-        'image' => 'assets/images/hero_canyons.jpg'
-    ]
-];
+// Conexão MySQL e Processamento de Restaurantes
+require_once __DIR__ . '/conexao.php';
+
+$restaurants = [];
+$userMsg = '';
+
+// Inserção de Novo Cadastro do Usuário no MySQL com Status 'pendente'
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_register_restaurant'])) {
+    $nome = trim($_POST['name'] ?? '');
+    $categoria = trim($_POST['category'] ?? 'Peixes & Frutos do Rio');
+    $descricao = trim($_POST['description'] ?? '');
+    $telefone = trim($_POST['phone'] ?? '');
+    $endereco = trim($_POST['location'] ?? '');
+
+    if (!empty($nome) && !empty($telefone)) {
+        try {
+            $stmt = $pdo->prepare("INSERT INTO restaurantes (nome, categoria, prato_destaque, endereco, telefone, status) VALUES (:nome, :categoria, :prato_destaque, :endereco, :telefone, 'pendente')");
+            $stmt->execute([
+                'nome' => $nome,
+                'categoria' => $categoria,
+                'prato_destaque' => $descricao,
+                'endereco' => $endereco,
+                'telefone' => $telefone
+            ]);
+            $userMsg = 'Seu cadastro foi enviado com sucesso! A Prefeitura de Canindé de São Francisco analisará as informações antes da publicação.';
+        } catch (PDOException $e) {
+            $userMsg = 'Erro ao processar solicitação no banco MySQL.';
+        }
+    }
+}
+
+// Leitura dos Restaurantes Aprovados no MySQL
+try {
+    $stmt = $pdo->query("SELECT *, nome AS name, prato_destaque AS specialty, endereco AS location, telefone AS phone, categoria AS category FROM restaurantes WHERE status = 'aprovado' ORDER BY id DESC");
+    $restaurants = $stmt->fetchAll();
+    foreach ($restaurants as &$r) {
+        if (empty($r['image'])) {
+            $r['image'] = 'assets/images/canions_xingo.jpg';
+        }
+        if (empty($r['tag'])) {
+            $r['tag'] = 'Recomendado';
+        }
+    }
+} catch (PDOException $e) {
+    $restaurants = [];
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
@@ -252,7 +251,7 @@ $restaurants = [
                     <div class="flex flex-col">
                         <span class="text-xs tracking-widest text-amber-400 font-bold uppercase">Prefeitura de</span>
                         <span class="text-lg font-extrabold tracking-tight text-white group-hover:text-amber-300 transition-colors">
-                            CANINDÉ <span class="text-caninde-gold font-serif italic text-base font-semibold">de São Francisco</span>
+                            CANINDÉ DE SÃO FRANCISCO
                         </span>
                     </div>
                 </a>
@@ -675,30 +674,30 @@ $restaurants = [
                     <?php foreach ($restaurants as $restaurant): ?>
                         <div class="snap-start shrink-0 w-full sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)] bg-caninde-bg rounded-2xl overflow-hidden border border-slate-200/80 shadow-md card-hover-lift flex flex-col group">
                             <div class="relative h-48 overflow-hidden">
-                                <img src="<?php echo $restaurant['image']; ?>" alt="<?php echo $restaurant['name']; ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <img src="<?php echo htmlspecialchars($restaurant['image'] ?? 'assets/images/canions_xingo.jpg'); ?>" alt="<?php echo htmlspecialchars($restaurant['name'] ?? $restaurant['nome'] ?? ''); ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                 <div class="absolute top-4 left-4 bg-amber-500 text-slate-950 font-extrabold text-xs px-3 py-1 rounded-lg shadow-md uppercase tracking-wider">
-                                    <?php echo $restaurant['category']; ?>
+                                    <?php echo htmlspecialchars($restaurant['category'] ?? $restaurant['categoria'] ?? 'Geral'); ?>
                                 </div>
                             </div>
                             <div class="p-6 flex-1 flex flex-col justify-between">
                                 <div>
                                     <h3 class="text-xl font-bold text-slate-900 group-hover:text-amber-600 transition-colors mb-2">
-                                        <?php echo $restaurant['name']; ?>
+                                        <?php echo htmlspecialchars($restaurant['name'] ?? $restaurant['nome'] ?? ''); ?>
                                     </h3>
                                     <p class="text-xs font-semibold text-amber-700 mb-2 flex items-center gap-1.5">
-                                        <i class="fa-solid fa-utensils"></i> <?php echo $restaurant['specialty']; ?>
+                                        <i class="fa-solid fa-utensils"></i> <?php echo htmlspecialchars($restaurant['specialty'] ?? $restaurant['prato_destaque'] ?? $restaurant['description'] ?? $restaurant['descricao'] ?? ''); ?>
                                     </p>
                                     <p class="text-xs text-slate-500 mb-4 flex items-start gap-1.5">
                                         <i class="fa-solid fa-location-dot text-amber-500 mt-0.5"></i>
-                                        <span><?php echo $restaurant['location']; ?></span>
+                                        <span><?php echo htmlspecialchars($restaurant['location'] ?? $restaurant['endereco'] ?? ''); ?></span>
                                     </p>
                                 </div>
                                 <div class="border-t border-slate-200/80 pt-3 flex items-center justify-between text-xs">
                                     <span class="font-bold text-slate-700 flex items-center gap-1">
-                                        <i class="fa-brands fa-whatsapp text-emerald-600 text-sm"></i> <?php echo $restaurant['phone']; ?>
+                                        <i class="fa-brands fa-whatsapp text-emerald-600 text-sm"></i> <?php echo htmlspecialchars($restaurant['phone'] ?? $restaurant['telefone'] ?? ''); ?>
                                     </span>
                                     <span class="bg-slate-200 text-slate-700 px-2.5 py-1 rounded-md text-[10px] font-bold">
-                                        <?php echo $restaurant['tag']; ?>
+                                        <?php echo htmlspecialchars($restaurant['tag'] ?? 'Recomendado'); ?>
                                     </span>
                                 </div>
                             </div>
@@ -852,7 +851,7 @@ $restaurants = [
                         <img src="assets/images/brasao_oficial.png" alt="Brasão Oficial de Canindé de São Francisco" class="h-16 w-auto object-contain drop-shadow-md">
                         <div class="flex flex-col">
                             <span class="text-[10px] tracking-widest text-amber-400 font-bold uppercase">Prefeitura de</span>
-                            <span class="text-base font-extrabold text-white">CANINDÉ <span class="text-amber-400 font-serif italic">de São Francisco</span></span>
+                            <span class="text-base font-extrabold text-white">CANINDÉ DE SÃO FRANCISCO</span>
                         </div>
                     </div>
                     
@@ -1058,16 +1057,17 @@ $restaurants = [
             </div>
 
             <!-- Formulário de Cadastro -->
-            <form onsubmit="handleRestaurantSubmit(event)" class="space-y-4">
+            <form method="POST" action="index.php" class="space-y-4">
+                <input type="hidden" name="user_register_restaurant" value="1">
                 <div>
                     <label class="block text-xs font-bold text-slate-700 mb-1">Nome do Estabelecimento *</label>
-                    <input type="text" required placeholder="Ex: Restaurante Sabor do Velho Chico" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm">
+                    <input type="text" name="name" required placeholder="Ex: Restaurante Sabor do Velho Chico" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm">
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">Categoria / Tipo de Culinária *</label>
-                        <select required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm bg-white">
+                        <select name="category" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm bg-white">
                             <option value="">Selecione Categoria</option>
                             <option>Peixes & Frutos do Rio</option>
                             <option>Comida Típica Sertaneja</option>
@@ -1080,18 +1080,18 @@ $restaurants = [
 
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">Telefone / WhatsApp *</label>
-                        <input type="tel" required placeholder="(79) 99999-9999" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm">
+                        <input type="tel" name="phone" required placeholder="(79) 99999-9999" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm">
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 mb-1">Endereço / Localização *</label>
-                    <input type="text" required placeholder="Ex: Av. Beira Rio, nº 120 - Centro, Canindé de São Francisco" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm">
+                    <input type="text" name="location" required placeholder="Ex: Av. Beira Rio, nº 120 - Centro, Canindé de São Francisco" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm">
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 mb-1">Descrição Curta *</label>
-                    <textarea rows="3" required placeholder="Descreva os pratos principais, horários de funcionamento e atrativos do seu estabelecimento..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm resize-none"></textarea>
+                    <textarea name="description" rows="3" required placeholder="Descreva os pratos principais, horários de funcionamento e atrativos do seu estabelecimento..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:outline-none text-sm resize-none"></textarea>
                 </div>
 
                 <div class="pt-2 flex flex-col sm:flex-row gap-3">

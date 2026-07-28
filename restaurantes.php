@@ -1,9 +1,11 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
 // Prefeitura de Canindé de São Francisco - Sergipe
 // Portal de Turismo Oficial - Guia Gastronômico Completo
 $currentYear = date('Y');
 
-// Lista Completa de Restaurantes e Estabelecimentos
+// Carregamento de dados dinâmicos do banco JSON
+$dataFile = __DIR__ . '/data/restaurants.json';
 $allRestaurants = [
     [
         'id' => 1,
@@ -106,6 +108,34 @@ $allRestaurants = [
         'image' => 'assets/images/rota_cangaco.jpg'
     ]
 ];
+
+// Conexão MySQL e Busca de Restaurantes Aprovados
+require_once __DIR__ . '/conexao.php';
+
+try {
+    $stmt = $pdo->query("SELECT *, nome AS name, prato_destaque AS specialty, endereco AS location, telefone AS phone, categoria AS category FROM restaurantes WHERE status = 'aprovado' ORDER BY id DESC");
+    $dbList = $stmt->fetchAll();
+    if (!empty($dbList)) {
+        foreach ($dbList as &$r) {
+            if (empty($r['image'])) $r['image'] = 'assets/images/canions_xingo.jpg';
+            if (empty($r['hours'])) $r['hours'] = 'Seg a Dom: 10:00 às 22:00';
+            if (empty($r['tag'])) $r['tag'] = 'Recomendado';
+            if (!isset($r['description']) || empty($r['description'])) {
+                $r['description'] = $r['specialty'] ?? 'Especialidade gastronômica local em Canindé de São Francisco.';
+            }
+            if (empty($r['category_slug'])) {
+                $cat = strtolower($r['category']);
+                if (strpos($cat, 'peix') !== false) $r['category_slug'] = 'peixes';
+                elseif (strpos($cat, 'sert') !== false || strpos($cat, 'caseir') !== false) $r['category_slug'] = 'sertaneja';
+                elseif (strpos($cat, 'churrasc') !== false || strpos($cat, 'bode') !== false) $r['category_slug'] = 'churrasco';
+                else $r['category_slug'] = 'variada';
+            }
+        }
+        $allRestaurants = $dbList;
+    }
+} catch (PDOException $e) {
+    // Mantém a lista padrão como fallback
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
@@ -194,7 +224,7 @@ $allRestaurants = [
                     <div class="flex flex-col">
                         <span class="text-xs tracking-widest text-amber-400 font-bold uppercase">Prefeitura de</span>
                         <span class="text-lg font-extrabold tracking-tight text-white group-hover:text-amber-300 transition-colors">
-                            CANINDÉ <span class="text-caninde-gold font-serif italic text-base font-semibold">de São Francisco</span>
+                            CANINDÉ DE SÃO FRANCISCO
                         </span>
                     </div>
                 </a>
@@ -323,7 +353,7 @@ $allRestaurants = [
                                 </p>
 
                                 <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                                    <?php echo $item['description']; ?>
+                                    <?php echo htmlspecialchars($item['description'] ?? $item['descricao'] ?? $item['prato_destaque'] ?? $item['specialty'] ?? ''); ?>
                                 </p>
                             </div>
 
@@ -384,10 +414,10 @@ $allRestaurants = [
     <footer class="bg-slate-950 text-slate-300 border-t-4 border-amber-500 py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-slate-400">
             <div class="flex items-center gap-3">
-                <img src="assets/images/brasao_oficial.png" alt="Brasão Oficial de Canindé" class="h-12 w-auto object-contain">
-                <div>
-                    <span class="block font-bold text-white">Prefeitura Municipal de Canindé de São Francisco</span>
-                    <span>Secretaria de Turismo e Cultura - Sergipe</span>
+                <img src="assets/images/brasao_oficial.png" alt="Brasão Oficial de Canindé de São Francisco" class="h-14 w-auto object-contain drop-shadow-md">
+                <div class="flex flex-col">
+                    <span class="text-[10px] tracking-widest text-amber-400 font-bold uppercase">Prefeitura de</span>
+                    <span class="text-base font-extrabold text-white">CANINDÉ DE SÃO FRANCISCO</span>
                 </div>
             </div>
 

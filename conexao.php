@@ -10,15 +10,21 @@ try {
     $pdo = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $username, $password, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"
     ]);
+
+    // Migration automática: garante existência da coluna 'cidade' na tabela restaurantes
+    try {
+        $pdo->exec("ALTER TABLE `restaurantes` ADD COLUMN `cidade` VARCHAR(100) NOT NULL DEFAULT 'Canindé de São Francisco'");
+    } catch (PDOException $ex) {
+        // Coluna já existente
+    }
 } catch (PDOException $e) {
     // Se o banco ainda não existir, tenta criar e rodar o script SQL de inicialização
     try {
         $pdo = new PDO("mysql:host={$host};charset=utf8mb4", $username, $password, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ]);
-        $sqlPath = __DIR__ . '/../setup_database.sql';
+        $sqlPath = file_exists(__DIR__ . '/setup_database.sql') ? __DIR__ . '/setup_database.sql' : __DIR__ . '/../setup_database.sql';
         if (file_exists($sqlPath)) {
             $sql = file_get_contents($sqlPath);
             $pdo->exec($sql);

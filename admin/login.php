@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 require_once __DIR__ . '/conexao.php';
 
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel ADM | Login Oficial - Prefeitura de Canindé de São Francisco</title>
+    <title>Painel ADM | CONEXÃO CÂNIONS - Conectando você ao melhor do Velho Chico</title>
     
     <!-- Google Fonts & FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -78,14 +78,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="max-w-md w-full">
         
-        <!-- Logo Oficial e Nome Uniformizado da Prefeitura -->
+        <!-- Logo e Nome da Marca CONEXÃO CÂNIONS -->
         <div class="text-center mb-8">
-            <a href="../index.php" class="inline-flex flex-col items-center gap-3 group">
-                <img src="../assets/images/brasao_oficial.png" alt="Brasão Oficial de Canindé de São Francisco" class="h-20 w-auto object-contain drop-shadow-xl group-hover:scale-105 transition-transform">
-                <div class="flex flex-col items-center">
-                    <span class="text-xs tracking-widest text-amber-400 font-bold uppercase">Prefeitura de</span>
-                    <span class="text-xl font-extrabold tracking-tight text-white">CANINDÉ DE SÃO FRANCISCO</span>
-                    <span class="text-xs text-slate-400 mt-1 font-semibold">Portal de Turismo • Painel ADM</span>
+            <a href="../index.php" class="inline-flex items-center gap-3 group text-left">
+                <img src="../assets/images/logo_icon.png" alt="Conexão Cânions" class="w-14 h-14 object-contain group-hover:scale-105 transition-transform shrink-0 drop-shadow-md">
+                <div class="flex flex-col">
+                    <span class="text-2xl font-black tracking-tight text-white group-hover:text-amber-400 transition-colors">
+                        CONEXÃO <span class="text-amber-500">CÂNIONS</span>
+                    </span>
+                    <span class="text-xs text-amber-400 font-bold tracking-wider uppercase">
+                        Conectando você ao melhor do Velho Chico
+                    </span>
                 </div>
             </a>
         </div>
@@ -109,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div>
                     <label class="block text-xs font-bold text-slate-300 mb-1">E-mail do Administrador</label>
                     <div class="relative">
-                        <input type="email" name="email" required value="admin@caninde.se.gov.br" placeholder="admin@caninde.se.gov.br" class="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-800 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 text-sm text-white focus:outline-none transition">
+                        <input type="email" name="email" required value="admin@conexaocanions.com.br" placeholder="admin@conexaocanions.com.br" class="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-800 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 text-sm text-white focus:outline-none transition">
                         <i class="fa-solid fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
                     </div>
                 </div>
@@ -131,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
 
             <div class="mt-6 border-t border-slate-800 pt-4 text-center">
-                <p class="text-[11px] text-slate-500 mb-2">Credenciais padrão para testes: <strong>admin@caninde.se.gov.br</strong> / <strong>admin123</strong></p>
+                <p class="text-[11px] text-slate-500 mb-2">Credenciais padrão para testes: <strong>admin@conexaocanions.com.br</strong> / <strong>admin123</strong></p>
                 <a href="../index.php" class="inline-flex items-center gap-1.5 text-xs text-amber-400 hover:text-amber-300 font-bold transition">
                     <i class="fa-solid fa-arrow-left text-[10px]"></i> Voltar para a Página Inicial do Site
                 </a>

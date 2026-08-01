@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 
 // 1. Verificação Estrita de Sessão ADM
@@ -57,7 +57,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Restrito | Painel ADM Canindé de São Francisco</title>
+    <title>Dashboard Restrito | CONEXÃO CÂNIONS - Painel ADM</title>
     
     <!-- Google Fonts & FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -94,12 +94,16 @@ try {
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 
-                <!-- Logo Oficial da Prefeitura -->
+                <!-- Logo e Nome CONEXÃO CÂNIONS -->
                 <div class="flex items-center gap-3">
-                    <img src="../assets/images/brasao_oficial.png" alt="Brasão Canindé" class="h-14 w-auto object-contain drop-shadow">
+                    <img src="../assets/images/logo_icon.png" alt="Conexão Cânions" class="w-10 h-10 sm:w-12 sm:h-12 object-contain shrink-0 drop-shadow-md">
                     <div class="flex flex-col">
-                        <span class="text-[10px] tracking-widest text-amber-400 font-bold uppercase">Painel de Administração</span>
-                        <span class="text-base font-extrabold text-white">CANINDÉ DE SÃO FRANCISCO</span>
+                        <span class="text-base sm:text-xl font-black tracking-tight text-white">
+                            CONEXÃO <span class="text-amber-500">CÂNIONS</span>
+                        </span>
+                        <span class="text-[10px] text-amber-400 font-bold tracking-wider uppercase">
+                            Painel de Administração • Velho Chico
+                        </span>
                     </div>
                 </div>
 
@@ -214,6 +218,7 @@ try {
                         <tr>
                             <th class="px-6 py-4">ID</th>
                             <th class="px-6 py-4">Nome do Restaurante</th>
+                            <th class="px-6 py-4">Cidade</th>
                             <th class="px-6 py-4">Categoria</th>
                             <th class="px-6 py-4">Prato Destaque</th>
                             <th class="px-6 py-4">Telefone / Endereço</th>
@@ -224,7 +229,7 @@ try {
                     <tbody class="divide-y divide-slate-800">
                         <?php if (empty($pendingList)): ?>
                             <tr>
-                                <td colspan="7" class="px-6 py-10 text-center text-slate-500 italic">
+                                <td colspan="8" class="px-6 py-10 text-center text-slate-500 italic">
                                     <i class="fa-solid fa-circle-check text-3xl text-emerald-500/50 block mb-3"></i>
                                     Nenhum cadastro pendente de aprovação no momento.
                                 </td>
@@ -236,6 +241,11 @@ try {
                                     <td class="px-6 py-4 font-extrabold text-white text-sm">
                                         <?php echo htmlspecialchars($item['nome']); ?>
                                         <span class="block text-[10px] text-slate-400 font-normal">Cadastrado em: <?php echo date('d/m/Y H:i', strtotime($item['criado_em'])); ?></span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="bg-amber-500/10 text-amber-300 border border-amber-500/20 px-2 py-0.5 rounded text-[10px] font-bold">
+                                            <?php echo htmlspecialchars($item['cidade'] ?? 'Canindé de São Francisco'); ?>
+                                        </span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="bg-slate-800 text-amber-400 border border-slate-700 px-2.5 py-1 rounded-md text-[10px] font-bold">
@@ -301,6 +311,7 @@ try {
                         <tr>
                             <th class="px-6 py-4">ID</th>
                             <th class="px-6 py-4">Nome do Restaurante</th>
+                            <th class="px-6 py-4">Cidade</th>
                             <th class="px-6 py-4">Categoria</th>
                             <th class="px-6 py-4">Prato Destaque</th>
                             <th class="px-6 py-4">Telefone</th>
@@ -313,6 +324,11 @@ try {
                                 <td class="px-6 py-4 text-slate-500 font-mono">#<?php echo $item['id']; ?></td>
                                 <td class="px-6 py-4 font-extrabold text-white">
                                     <?php echo htmlspecialchars($item['nome']); ?>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-amber-500/10 text-amber-300 border border-amber-500/20 px-2 py-0.5 rounded text-[10px] font-bold">
+                                        <?php echo htmlspecialchars($item['cidade'] ?? 'Canindé de São Francisco'); ?>
+                                    </span>
                                 </td>
                                 <td class="px-6 py-4">
                                     <span class="bg-slate-800 text-slate-300 border border-slate-700 px-2 py-0.5 rounded text-[10px] font-bold">

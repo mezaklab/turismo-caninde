@@ -1,0 +1,33 @@
+# ==========================================
+# .gitignore - Conexão Cânions
+# ==========================================
+
+# Arquivos de Sistema Operacional
+Thumbs.db
+.DS_Store
+desktop.ini
+ehthumbs.db
+
+# Logs e Arquivos Temporários
+*.log
+*.tmp
+*.bak
+*.swp
+*.temp
+php_error.log
+
+# Configurações de Ambientes e IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+laragon.ini
+
+# Ambientes e Segredos
+.env
+.env.local
+.env.development
+.env.production
+
+# Scratch e Despejos Temporários
+scratch/

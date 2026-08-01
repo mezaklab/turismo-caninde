@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/auth.php';
 checkAuth();
 
@@ -75,10 +75,14 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <a href="index.php" class="flex items-center gap-3">
-                    <img src="../assets/images/brasao_oficial.png" alt="Brasão Canindé" class="h-12 w-auto object-contain">
+                    <img src="../assets/images/logo_icon.png" alt="Conexão Cânions" class="w-10 h-10 object-contain shrink-0 drop-shadow-md">
                     <div class="flex flex-col">
-                        <span class="text-[10px] tracking-widest text-amber-400 font-bold uppercase">Painel de Administração</span>
-                        <span class="text-base font-extrabold text-white">CANINDÉ DE SÃO FRANCISCO</span>
+                        <span class="text-base font-black tracking-tight text-white">
+                            CONEXÃO <span class="text-amber-500">CÂNIONS</span>
+                        </span>
+                        <span class="text-[10px] text-amber-400 font-bold tracking-wider uppercase">
+                            Painel de Administração
+                        </span>
                     </div>
                 </a>
 
@@ -209,14 +213,23 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
                         <input type="text" name="category" required placeholder="Ex: Peixes & Frutos do Rio" class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-sm text-white focus:ring-2 focus:ring-amber-500 focus:outline-none">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-300 mb-1">Telefone / WhatsApp *</label>
-                        <input type="text" name="phone" required placeholder="(79) 99999-9999" class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-sm text-white focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-300 mb-1">Cidade *</label>
+                        <select name="cidade" required class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-sm text-white focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                            <option value="Canindé de São Francisco">Canindé de São Francisco (SE)</option>
+                            <option value="Piranhas">Piranhas (AL)</option>
+                        </select>
                     </div>
                 </div>
 
-                <div>
-                    <label class="block text-xs font-bold text-slate-300 mb-1">Prato Principal / Especialidade *</label>
-                    <input type="text" name="specialty" required placeholder="Ex: Tucunaré Assado na Folha de Bananeira" class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-sm text-white focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-300 mb-1">Telefone / WhatsApp *</label>
+                        <input type="text" name="phone" required placeholder="(79) 99999-9999" class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-sm text-white focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-300 mb-1">Prato Principal / Especialidade *</label>
+                        <input type="text" name="specialty" required placeholder="Ex: Tucunaré Assado" class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-sm text-white focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                    </div>
                 </div>
 
                 <div>
